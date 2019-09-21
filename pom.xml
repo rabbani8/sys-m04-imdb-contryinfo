@@ -12,6 +12,12 @@
 	<!-- <parent> <artifactId>api-gateway</artifactId> <groupId>com.imdb.m04</groupId> 
 		<version>1.0.0</version> <relativePath>../api-gateway-3.84/pom.xml</relativePath> 
 		</parent> -->
+	 <parent>
+		<groupId>com.javastreets</groupId>
+		<artifactId>mule-maven-parent-pom</artifactId>
+		<version>0.0.5-SNAPSHOT</version>
+		<relativePath>../mule-maven-parent-pom/pom.xml</relativePath>
+	</parent>
 
 	<properties>
 
