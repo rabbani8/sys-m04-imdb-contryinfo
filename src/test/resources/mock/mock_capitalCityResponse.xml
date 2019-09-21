@@ -1,0 +1,3 @@
+    <m:CapitalCityResponse xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:m="http://www.oorsprong.org/websamples.countryinfo">
+      <m:CapitalCityResult>New Delhi</m:CapitalCityResult>
+    </m:CapitalCityResponse>

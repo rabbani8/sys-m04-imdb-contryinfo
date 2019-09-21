@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <sub-flow name="sf-tracking-heders">
+        <dw:transform-message doc:name="Dw Transform Message tracking headers">
+            <dw:set-variable variableName="headersVar"><![CDATA[%dw 1.0
+%output application/java
+---
+{
+		trackingMessageHeader: {
+			applicationId: inboundProperties.applicationid,
+			applicationUserId: inboundProperties.applicationuserid when inboundProperties.applicationuserid?
+			otherwise inboundProperties.applicationid,
+			consumerId: inboundProperties.consumerid when inboundProperties.consumerid? otherwise "test",
+			messageId: inboundProperties.enterprisemessageid,
+			conversationId: inboundProperties.conversationid when inboundProperties.conversationid?	
+			otherwise inboundProperties.applicationid,
+			timeToLive: inboundProperties.timetolive when inboundProperties.timetolive? otherwise 45,
+			messageDateTimeStamp: inboundProperties.messagedatetimestamp when inboundProperties.messagedatetimestamp?
+			otherwise now
+		}
+}]]></dw:set-variable>
+            <dw:set-property propertyName="soap.header"><![CDATA[%dw 1.0
+%output application/xml
+---
+{
+	wsMessageHeader @(xmlns:"http://www.oorsprong.org/websamples.countryinfo"): 
+	{
+		trackingMessageHeader: {
+			applicationId: inboundProperties.applicationid,
+			applicationUserId: inboundProperties.applicationuserid when inboundProperties.applicationuserid?
+			otherwise inboundProperties.applicationid,
+			consumerId: inboundProperties.consumerid when inboundProperties.consumerid? otherwise "test",
+			messageId: inboundProperties.enterprisemessageid,
+			conversationId: inboundProperties.conversationid when inboundProperties.conversationid?	
+			otherwise inboundProperties.applicationid,
+			timeToLive: inboundProperties.timetolive when inboundProperties.timetolive? otherwise 45,
+			messageDateTimeStamp: inboundProperties.messagedatetimestamp when inboundProperties.messagedatetimestamp?
+			otherwise now
+		}
+	}
+}]]></dw:set-property>
+        </dw:transform-message>
+    </sub-flow>
+</mule>

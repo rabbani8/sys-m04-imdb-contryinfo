@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "fullCountryInfoResponse": {
+      "type": "object",
+      "properties": {
+        "ISOCode": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "capitalCity": {
+          "type": "string"
+        },
+        "sPhoneCode": {
+          "type": "string"
+        },
+        "continentCode": {
+          "type": "string"
+        },
+        "currencyISOCode": {
+          "type": "string"
+        },
+        "countryFlag": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "object",
+          "properties": {
+            "tLanguage": {
+              "type": "object",
+              "properties": {
+                "ISOCode": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ISOCode",
+                "name"
+              ]
+            }
+          },
+          "required": [
+            "tLanguage"
+          ]
+        }
+      },
+      "required": [
+        "ISOCode",
+        "name",
+        "capitalCity",
+        "sPhoneCode",
+        "continentCode",
+        "currencyISOCode",
+        "countryFlag",
+        "languages"
+      ]
+    }
+  },
+  "required": [
+    "fullCountryInfoResponse"
+  ]
+}

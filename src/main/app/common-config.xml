@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:ws="http://www.mulesoft.org/schema/mule/ws"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+
+
+ 
+  <context:property-placeholder
+	         location="classpath:sys-m04-imdb-contryinfo.properties,
+	          ${mule.config.path}/sys-m04-imdb-contryinfo.properties-${mule.env}.properties,
+	          classpath:global-${mule.env}.properties,
+	          ${mule.config.path}/global-${mule.env}.properties,
+	          file:${mule.config.path}/global-${mule.env}.properties
+	           " ignore-resource-not-found="true" ignore-unresolvable="true" />               
+
+ <ws:consumer-config name="Countryinfo_Web_Service_Consumer" wsdlLocation="${country_info_wsdlLocation}" service="${country_info_service}" port="${country_info_port}" serviceAddress="${country_info_serviceAddress}" doc:name="Web Service Consumer"/>
+ 
+
+
+</mule>

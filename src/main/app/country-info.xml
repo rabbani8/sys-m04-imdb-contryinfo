@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+
+     
+  
+    <sub-flow name="sf-country-info">
+    
+        <dw:transform-message doc:name="DW Transform CountryInfo Request">
+            <dw:input-payload mimeType="application/json"/> 
+            <!-- <dw:input-payload doc:sample="sample_data\json_1.json"/> -->
+            <dw:set-payload resource="classpath:dwScripts/contryInfo/countryInfoRequest.dwl"/>
+            <dw:set-variable resource="classpath:dwScripts/propertiesReading.dwl" variableName="contryInfo_var"/>
+        </dw:transform-message>
+        <set-variable variableName="country_info_serviceAddress_var" value="${country_info_serviceAddress_var}" doc:name="FV SET country_info_serviceAddress_var"/>
+        
+        <expression-component doc:name="XP SCRIPT Update FV Tracer"><![CDATA[flowVars.tracer.append('| Before Web Service Consumer CountryInfoService  __ '+server.dateTime);]]></expression-component>
+        <ws:consumer config-ref="Countryinfo_Web_Service_Consumer" operation="FullCountryInfo" doc:name="Web Service Consumer CountryFlag"/>
+
+        <expression-component doc:name="XP SCRIPT Update FV Tracer"><![CDATA[flowVars.tracer.append('| After Web Service Consumer CountryInfoService  __ '+server.dateTime);]]></expression-component>
+        
+        <dw:transform-message doc:name="DW Transform CountryInfo Response">
+            <!-- <dw:input-payload doc:sample="sample_data\empty_1.xml"/> -->
+            <dw:input-payload mimeType="application/xml"/> 
+            <dw:set-payload resource="classpath:dwScripts/contryInfo/countryInfoResponse.dwl"></dw:set-payload>
+        </dw:transform-message>
+        
+        
+    </sub-flow>
+</mule>

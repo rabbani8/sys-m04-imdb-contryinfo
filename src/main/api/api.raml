@@ -1,0 +1,92 @@
+#%RAML 0.8
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/4c2409f2-7a51-46ca-a962-bd10170affe0/
+title: sys-m04-imdb-contryinfo
+version: 1.0
+
+resourceTypes: 
+  - readOnlyCollection : !include resourceTypes/readOnlyCollection.yaml
+  - postCollection : !include resourceTypes/postCollection.yaml
+
+schemas: 
+  - errorResponse : !include schema/errors/errorResponse.json
+  - errorResponse401 : !include schema/errors/errorResponse-401.json
+  - capitalCityResponse: !include schema/capitalCityResponse.json
+  - countryFlagResponse: !include schema/countryFlagResponse.json
+  - countryInfoRequest: !include schema/countryInfoRequest.json
+  - countryInfoResponse: !include schema/countryInfoResponse.json
+
+traits:
+  - tracking-header: !include traits/tracking-header.yaml
+  
+  
+  
+/capital-city/{isocode}:
+  uriParameters: 
+    isocode: 
+      type: string
+      minLength: 2
+      maxLength: 4
+      description:  isocode of the contry
+  get:
+    description:  taking iso code of the contry fetches captial city
+  type: { 
+  readOnlyCollection : {
+    collectionItem-res-example: !include examples/capitalCityResponse.json,
+    collectionItem-res-schema: capitalCityResponse,
+    errors-example: !include examples/errors/errorResponse-401.json,
+    errors-schema: errorResponse ,
+    errors-401-example: !include examples/errors/errorResponse.json ,
+    errors-401-schema:  errorResponse401
+  }
+  }
+ 
+/country-flag:
+  get:
+    queryParameters: 
+      isocode: 
+        type: string
+        minLength: 2
+        maxLength: 4
+        description:  isocode of the contry
+  type: { 
+  readOnlyCollection : {
+    collectionItem-res-example: !include examples/countryFlagResponse.json,
+    collectionItem-res-schema: countryFlagResponse,
+    errors-example: !include examples/errors/errorResponse-401.json,
+    errors-schema: errorResponse ,
+    errors-401-example: !include examples/errors/errorResponse.json ,
+    errors-401-schema:  errorResponse401
+  }
+  }
+/country-info:
+  type: { 
+    postCollection :{
+      collectionItem-req-example:  !include examples/countryInfoRequest.json ,
+      collectionItem-req-schema: countryInfoRequest,
+      collectionItem-res-example: !include examples/countryInfoResponse.json ,
+      collectionItem-res-schema: countryInfoResponse,
+      errors-example: !include examples/errors/errorResponse-401.json,
+      errors-schema: errorResponse ,
+      errors-401-example: !include examples/errors/errorResponse.json ,
+      errors-401-schema:  errorResponse401
+    }
+    }
+
+
+#/sample/state/{stateid}/distrct/{distid}:
+#  uriParameters: 
+#    stateid: 
+#      description: its state in a contry
+#      type:
+#    distid: 
+#  get:
+#/sample/state/distrct/:
+#  post:
+#    queryParameters: 
+#      stateid:
+#      distid:
+      
+      
+   
+  
+  

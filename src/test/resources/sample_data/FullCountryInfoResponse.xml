@@ -1,0 +1,12 @@
+     <FullCountryInfoResponse xmlns:m="http://www.oorsprong.org/websamples.countryinfo">
+         <FullCountryInfoResult>
+            <sISOCode/>
+            <sName>Country not found in the database</sName>
+            <sCapitalCity/>
+            <sPhoneCode/>
+            <sContinentCode/>
+            <sCurrencyISOCode/>
+            <sCountryFlag/>
+            <Languages></Languages>
+         </FullCountryInfoResult>
+      </FullCountryInfoResponse>

@@ -1,0 +1,3 @@
+  <m:CountryFlagResponse xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:m="http://www.oorsprong.org/websamples.countryinfo">
+      <m:CountryFlagResult>http://www.oorsprong.org/WebSamples.CountryInfo/Flags/India.jpg</m:CountryFlagResult>
+    </m:CountryFlagResponse>

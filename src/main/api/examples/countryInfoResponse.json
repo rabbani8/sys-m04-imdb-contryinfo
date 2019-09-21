@@ -1,0 +1,17 @@
+{
+  "fullCountryInfoResponse": {
+    "ISOCode": "US",
+    "name": "United States",
+    "capitalCity": "Washington",
+    "sPhoneCode": "1",
+    "continentCode": "AM",
+    "currencyISOCode": "USD",
+    "countryFlag": "http://www.oorsprong.org/WebSamples.CountryInfo/Flags/USA.jpg",
+    "languages": {
+      "tLanguage": {
+        "ISOCode": "eng",
+        "name": "English"
+      }
+    }
+  }
+}

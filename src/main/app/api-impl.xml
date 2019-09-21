@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+    <sub-flow name="mf-country-info">
+        <flow-ref name="sf-business-events-startFlow" doc:name="sf-business-events-startFlow"/>
+        <flow-ref name="sf-tracking-heders" doc:name="sf-tracking-heders"/>
+         <set-variable variableName="tracer" value="#[new java.lang.StringBuilder(&quot;| mf-country-info satrted.&quot;)]" doc:name="FV SET tracer"/>
+        <flow-ref name="sf-country-info" doc:name="sf-country-info"/>
+        <flow-ref name="sf-business-events-endFlow" doc:name="sf-business-events-endFlow"/>
+    </sub-flow>
+    
+    <sub-flow name="mf-country-flag">
+        <flow-ref name="sf-business-events-startFlow" doc:name="sf-business-events-startFlow"/>
+        <flow-ref name="sf-tracking-heders" doc:name="sf-tracking-heders"/>
+         <set-variable variableName="tracer" value="#[new java.lang.StringBuilder(&quot;| mf-country-flag&quot;)]" doc:name="FV SET tracer"/>
+        <flow-ref name="sf-country-flag" doc:name="sf-country-flag"/>
+        <flow-ref name="sf-business-events-endFlow" doc:name="sf-business-events-endFlow"/>
+    </sub-flow>
+    <sub-flow name="mf-country-capital-city">
+        <flow-ref name="sf-business-events-startFlow" doc:name="sf-business-events-startFlow"/>
+        <flow-ref name="sf-tracking-heders" doc:name="sf-tracking-heders"/>
+        <set-variable variableName="tracer" value="#[new java.lang.StringBuilder(&quot;| mf-country-flag&quot;)]" doc:name="FV SET tracer"/>
+        <flow-ref name="sf-country-capital-city" doc:name="sf-country-capital-city"/>
+        <flow-ref name="sf-business-events-endFlow" doc:name="sf-business-events-endFlow"/>
+    </sub-flow>
+
+</mule>

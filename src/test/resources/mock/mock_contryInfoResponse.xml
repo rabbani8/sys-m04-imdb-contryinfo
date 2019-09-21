@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<m:FullCountryInfoResponse xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:m="http://www.oorsprong.org/websamples.countryinfo">
+      <m:FullCountryInfoResult>
+        <m:sISOCode>IN</m:sISOCode>
+        <m:sName>India</m:sName>
+        <m:sCapitalCity>New Delhi</m:sCapitalCity>
+        <m:sPhoneCode>91</m:sPhoneCode>
+        <m:sContinentCode>AS</m:sContinentCode>
+        <m:sCurrencyISOCode>INR</m:sCurrencyISOCode>
+        <m:sCountryFlag>http://www.oorsprong.org/WebSamples.CountryInfo/Flags/India.jpg</m:sCountryFlag>
+        <m:Languages>
+          <m:tLanguage>
+            <m:sISOCode>hin</m:sISOCode>
+            <m:sName>Hindi</m:sName>
+          </m:tLanguage>
+        </m:Languages>
+      </m:FullCountryInfoResult>
+    </m:FullCountryInfoResponse>

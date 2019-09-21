@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "code": "33888",
+      "description": "db_no_data_found_exception-Client.701:"
+    },
+    {
+      "code": "33889",
+      "description": "no data"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:mock="http://www.mulesoft.org/schema/mule/mock" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/mock http://www.mulesoft.org/schema/mule/mock/current/mule-mock.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+
+	<munit:config name="munit" doc:name="MUnit configuration" mock-connectors="false" mock-inbounds="false"  />
+    <http:request-config name="HTTP_Request_Configuration" host="0.0.0.0" port="8444" basePath="/" doc:name="HTTP Request Configuration"/>
+  
+    <spring:beans>
+        <spring:import resource="classpath:api.xml"/>
+        <spring:import resource="classpath:api-impl.xml"/>
+        <spring:import resource="classpath:business-events.xml"/>
+        <spring:import resource="classpath:common-config.xml"/>
+        <spring:import resource="classpath:common-errors.xml"/>
+        <spring:import resource="classpath:common-tracking.xml"/>
+        <spring:import resource="classpath:country-capital-city.xml"/>
+        <spring:import resource="classpath:country-flag.xml"/>
+        <spring:import resource="classpath:country-info.xml"/>
+    </spring:beans>
+    
+   <!--  post:/country-info:application/json:api-configTest-success -->
+    <munit:test name="post:/country-info:application/json:api-configTest-success" description="Test" >
+        <mock:when doc:name="Mock" messageProcessor=".*:.*">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Web Service Consumer country-capital-city']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[getResource('mock/mock_contryInfoResponse.xml').asString()]"/>
+        </mock:when>
+        <set-payload value="#[getResource('request/fullCountryInfoRequest.json').asString()]" mimeType="application/json" doc:name="Set Payload"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="api/system/contryinfo/country-info" method="POST" doc:name="HTTP">
+            <http:request-builder>
+                <http:header headerName="appId" value="ABC"/>
+                <http:header headerName="appUserId" value="moble"/>
+                <http:header headerName="messageDateTimeStamp" value="2007-10-01T14:20:33"/>
+                <http:header headerName="replyCompletionCode" value="120"/>
+                <http:header headerName="timeToLive" value="60"/>
+            </http:request-builder>
+            <http:success-status-code-validator values="200..599"/>
+        </http:request>
+        <munit:assert-on-equals expectedValue="#[json:fullCountryInfoResponse/ISOCode]" actualValue="US" doc:name="Assert Equals"/>
+    </munit:test>
+    
+    
+    <munit:test name="get:/capital-city/{isocode}:api-configTest-success" description="Test" >
+        <mock:when doc:name="Mock" messageProcessor=".*:.*">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Web Service Consumer country-capital-city']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[getResource('mock/mock_capitalCityResponse.xml').asString()]"/>
+        </mock:when>
+        <http:request config-ref="HTTP_Request_Configuration" path="/api/system/contryinfo/capital-city/IN" method="GET" doc:name="HTTP">
+            <http:request-builder>
+                <http:header headerName="appId" value="ABC"/>
+                <http:header headerName="appUserId" value="moble"/>
+                <http:header headerName="messageDateTimeStamp" value="2007-10-01T14:20:33"/>
+                <http:header headerName="replyCompletionCode" value="120"/>
+                <http:header headerName="timeToLive" value="60"/>
+            </http:request-builder>
+            <http:success-status-code-validator values="200..599"/>
+        </http:request>
+        <munit:assert-on-equals expectedValue="#[dw('payload.capitalCity')]" actualValue="New Delhi" doc:name="Assert Equals"/>
+    </munit:test>
+    
+    <munit:test name="get:/country-flag:api-configTest-sucess" description="Test">
+        <mock:when doc:name="Mock" messageProcessor=".*:.*">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Web Service Consumer CountryFlag']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[getResource('mock/mock_contryFlagResponse.xml').asString()]"/>
+        </mock:when>
+        <http:request config-ref="HTTP_Request_Configuration" path="/api/system/contryinfo/country-flag?isocode=IN" method="GET" doc:name="HTTP">
+            <http:request-builder>
+                <http:header headerName="appId" value="ABC"/>
+                <http:header headerName="appUserId" value="moble"/>
+                <http:header headerName="messageDateTimeStamp" value="2007-10-01T14:20:33"/>
+                <http:header headerName="replyCompletionCode" value="120"/>
+                <http:header headerName="timeToLive" value="60"/>
+            </http:request-builder>
+            <http:success-status-code-validator values="200..599"/>
+        </http:request>
+        <munit:assert-on-equals expectedValue="#[dw('payload.countryFlag')]" actualValue="http://www.oorsprong.org/WebSamples.CountryInfo/Flags/India.jpg" doc:name="Assert Equals"/>
+    </munit:test>
+    
+       <munit:test name="post:/country-info:application/json:api-configTest-failure" description="Test" >
+        <mock:when doc:name="Mock" messageProcessor=".*:.*">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Web Service Consumer country-capital-city']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[getResource('mock/mock_contryInfoResponse.xml').asString()]"/>
+        </mock:when>
+        <set-payload value="#[getResource('request/fullCountryInfoRequest.json').asString()]" mimeType="application/json" doc:name="Set Payload"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="api/system/contryinfo/country-info" method="POST" doc:name="HTTP">
+            <http:request-builder>
+            </http:request-builder>
+            <http:success-status-code-validator values="200..599"/>
+        </http:request>
+        <munit:assert-on-equals expectedValue="Required header appId not specified" actualValue="#[dw('payload.errors[0].description')]" doc:name="Assert Equals"/>
+    </munit:test>
+    
+</mule>

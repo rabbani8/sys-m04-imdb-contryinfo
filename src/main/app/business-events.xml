@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" 
+	  xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+  	  
+    <sub-flow name="sf-business-events-startFlow">
+        <expression-component doc:name="XP SCRIPT Update FV Expression"><![CDATA[flowVars.flowName=flow.name]]></expression-component>
+        <tracking:custom-event event-name="business-events-startFlow" doc:name="business-events-startFlow">
+                    <tracking:meta-data key="messageId" value="#[message.id]"/>
+                    <tracking:meta-data key="eventTime" value="#[server.dateTime]"/>
+                    <tracking:meta-data key="flowName" value="#[flowVars.flowName]"/>
+                    <tracking:meta-data key="payload" value="#[payload]"/>
+                   <tracking:meta-data key="nodeName" value="#[mule.nodeId]"/>
+                    <tracking:meta-data key="inboundProperties" value="#[message.inboundProperties]"/>
+          </tracking:custom-event>
+    </sub-flow>
+    <sub-flow name="sf-business-events-endFlow">
+        <expression-component doc:name="XP SCRIPT Update FV Expression"><![CDATA[flowVars.flowName=flow.name]]></expression-component>
+        <tracking:custom-event event-name="business-events-endFlow" doc:name="business-events-endFlow">
+                    <tracking:meta-data key="messageId" value="#[message.id]"/>
+                    <tracking:meta-data key="eventTime" value="#[server.dateTime]"/>
+                    <tracking:meta-data key="flowName" value="#[flowVars.flowName]"/>
+                    <tracking:meta-data key="payload" value="#[payload]"/>
+                   <tracking:meta-data key="nodeName" value="#[mule.nodeId]"/>
+                   <tracking:meta-data key="httpStatus" value="#[message.outboundProperties['http.status']]"/>
+                    <tracking:meta-data key="inboundProperties" value="#[message.inboundProperties]"/>
+          </tracking:custom-event>
+    </sub-flow>
+    <sub-flow name="sf-business-events-exceptionFlow">
+        <expression-component doc:name="XP SCRIPT Update FV Expression"><![CDATA[flowVars.flowName=flow.name]]></expression-component>
+        <tracking:custom-event event-name="business-events-exceptionFlow" doc:name="business-events-exceptionFlow">
+	        <tracking:meta-data key="messageId" value="#[message.id]"/>
+	        <tracking:meta-data key="eventTime" value="#[server.dateTime]"/>
+	        <tracking:meta-data key="flowName" value="#[flowVars.flowName]"/>
+	        <tracking:meta-data key="payload" value="#[payload]"/>
+			<tracking:meta-data key="nodeName" value="#[mule.nodeId]"/>
+			<tracking:meta-data key="httpStatus" value="#[message.outboundProperties['http.status']]"/>
+	        <tracking:meta-data key="inboundProperties" value="#[message.inboundProperties]"/>
+        </tracking:custom-event>
+    </sub-flow>
+</mule>
