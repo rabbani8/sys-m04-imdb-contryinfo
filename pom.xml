@@ -37,36 +37,6 @@
 		<build.number>0</build.number>
 		<maven.build.timestamp.format>yyMMddHHmmss</maven.build.timestamp.format>
 	</properties>
-
-	<profiles>
-		<profile>
-			<id>standalone</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.mule.tools.maven</groupId>
-						<artifactId>mule-maven-plugin</artifactId>
-						<configuration>
-							<standaloneDeployment>
-								<muleVersion>${mule.version}</muleVersion>
-								<muleHome>${mule.home}</muleHome>
-								<applicationName>${project.artifactId}</applicationName>
-							</standaloneDeployment>
-						</configuration>
-						<executions>
-							<execution>
-								<id>deploy</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>deploy</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 	<build>
 		<plugins>
 			<plugin>
