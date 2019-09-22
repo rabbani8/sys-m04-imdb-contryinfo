@@ -257,7 +257,7 @@
 							<standaloneDeployment>
 								<muleVersion>${mule.version}</muleVersion>
 								<muleHome>${mule.home}</muleHome>
-								<applicationName>${artifactId}</applicationName>
+								<applicationName>${project.artifactId}</applicationName>
 							</standaloneDeployment>
 						</configuration>
 						<executions>
@@ -285,7 +285,7 @@
 								<muleVersion>${mule.version}</muleVersion>
 								<username>${anypoint.username}</username>
 								<password>${anypoint.password}</password>
-								<applicationName>${artifactId}-${maven.build.timestamp}</applicationName>
+								<applicationName>${project.artifactId}-${maven.build.timestamp}</applicationName>
 								<environment>${cloundhub.env}</environment>
 								<businessGroup>${anypoint.businessGroup}</businessGroup>
 								<region>${cloudhub.region}</region>
@@ -386,4 +386,21 @@
 			</build>
 		</profile>
 	</profiles>
+	
+		<pluginRepositories>
+		<pluginRepository>
+			<id>mulesoft-release</id>
+			<name>mulesoft release repository</name>
+			<layout>default</layout>
+			<url>http://repository.mulesoft.org/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>mule-public</id>
+			<url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+	
 </project>
