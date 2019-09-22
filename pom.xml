@@ -25,7 +25,6 @@
 		<mule.munit.support.version>3.8.3</mule.munit.support.version>
 		<!-- <mule.munit.support.version>3.8.7</mule.munit.support.version> -->
 		<licensePath>LICENSE.md</licensePath>
-		<mule.tools.version>1.7</mule.tools.version>
 		<!-- <mule.home>${MULE_HOME}</mule.home> -->
 		<anypoint.username>${env.ANYPOINT_USERNAME}</anypoint.username>
 		<anypoint.password>${env.ANYPOINT_PASSWORD}</anypoint.password>
