@@ -6,7 +6,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
    
        
-    <http:listener-config name="https-lc-eai-M04" host="0.0.0.0" port="8444" protocol="HTTP"/> 
+    <http:listener-config name="https-lc-eai-M04" host="0.0.0.0" port="4000" protocol="HTTP"/> 
     <apikit:config name="api-config" raml="api.raml" consoleEnabled="true" doc:name="Router" keepRamlBaseUri="false"/>
     <flow name="api-main">
         <http:listener config-ref="https-lc-eai-M04" path="/api/system/contryinfo/*" doc:name="HTTP"/>
