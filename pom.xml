@@ -8,14 +8,21 @@
 	<packaging>mule</packaging>
 	<name>Mule sys-m04-imdb-contryinfo Application</name>
   
-  
-  <parent>
+  	<!--
+  	<parent>
 		<groupId>com.javastreets</groupId>
 		<artifactId>mule-maven-parent-pom</artifactId>
 		<version>0.0.5-SNAPSHOT</version>
 		<relativePath>../mule-maven-parent-pom/pom.xml</relativePath>
 	</parent>
-
+	-->
+	<parent>
+		<groupId>com.imdb</groupId>
+		<artifactId>mule-maven-parent</artifactId>
+		<version>0.0.5-SNAPSHOT</version>
+		<relativePath>../mule-maven-parent/pom.xml</relativePath>
+	</parent>
+	
 	<properties>
 		<mule.version>3.9.0</mule.version>
 		<mule.tools.version>1.7</mule.tools.version>
